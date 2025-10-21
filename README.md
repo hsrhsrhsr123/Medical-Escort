@@ -41,6 +41,14 @@
 
 ```
 medical-escort/
+├── frontend/               # Vue 3 前端界面 (新增)
+│   ├── src/
+│   │   ├── views/             # 页面组件
+│   │   ├── components/        # 通用组件
+│   │   ├── api/              # API接口
+│   │   └── router/           # 路由配置
+│   ├── package.json          # 依赖配置
+│   └── start-frontend.sh     # 前端启动脚本
 ├── agents/                 # AI Agent模块
 │   ├── symptom_analyzer.py    # 症状分析Agent
 │   ├── appointment_agent.py   # 预约挂号Agent
@@ -60,18 +68,32 @@ medical-escort/
 
 ## 技术栈
 
-- **后端框架**: FastAPI
+### 后端
+- **框架**: FastAPI
 - **AI模型**: OpenAI GPT-4
 - **数据库**: SQLite/PostgreSQL + MongoDB
 - **日志**: Loguru
 - **API文档**: Swagger UI
 
+### 前端（新增）
+- **框架**: Vue 3 (Composition API)
+- **UI组件库**: Element Plus
+- **构建工具**: Vite
+- **路由**: Vue Router
+- **状态管理**: Pinia
+- **HTTP客户端**: Axios
+
 ## 安装部署
 
 ### 1. 环境要求
 
+**后端：**
 - Python 3.9+
 - pip
+
+**前端：**
+- Node.js 16+
+- npm 或 yarn
 
 ### 2. 安装依赖
 
@@ -103,14 +125,46 @@ python -c "from database import init_db; init_db()"
 
 ### 5. 启动服务
 
+#### 方式1：一键启动脚本（推荐）
+
+**启动后端服务：**
 ```bash
-cd api
-python main.py
+bash start.sh
 ```
 
-服务将在 `http://localhost:8000` 启动。
+后端服务将在 `http://localhost:8000` 启动。
 
-访问 `http://localhost:8000/docs` 查看API文档。
+**启动前端服务：**
+```bash
+cd frontend
+bash start-frontend.sh
+```
+
+前端界面将在 `http://localhost:3000` 启动。
+
+#### 方式2：手动启动
+
+**后端：**
+```bash
+# 在项目根目录
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+**前端：**
+```bash
+cd frontend
+npm install  # 首次运行需要安装依赖
+npm run dev
+```
+
+### 6. 访问系统
+
+系统启动后，可以通过以下地址访问：
+
+- **前端界面**: http://localhost:3000 （Vue 3 Web界面）
+- **后端API**: http://localhost:8000
+- **API文档**: http://localhost:8000/docs （Swagger UI）
+- **API文档（ReDoc）**: http://localhost:8000/redoc
 
 ## API使用示例
 

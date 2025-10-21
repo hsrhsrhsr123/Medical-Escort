@@ -58,8 +58,8 @@ echo ""
 echo "按 Ctrl+C 停止服务"
 echo ""
 
-cd api
-python3 main.py
+# 使用 uvicorn 在根目录启动，这样可以正确导入 config 模块
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 
 
 
